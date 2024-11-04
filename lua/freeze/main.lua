@@ -200,12 +200,13 @@ end
 ---@param _opts { callback?: fun(target: string) }?
 local function freeze_visual(_opts)
   log({ fn = 'freeze_visual()', _opts = _opts }, vim.log.levels.DEBUG)
+  local opts = _opts or {}
   util.visual(function(_range)
     local range = { top = _range.top[1], bottom = _range.bottom[1] }
     if M.opts.never_prompt then
-      freeze(vim.tbl_deep_extend('keep', { range = range }, _opts))
+      freeze(vim.tbl_deep_extend('keep', { range = range }, opts))
     else
-      freeze_prompt(vim.tbl_deep_extend('keep', { range = range }, _opts))
+      freeze_prompt(vim.tbl_deep_extend('keep', { range = range }, opts))
     end
   end, { jump = 'origin' })
 end
@@ -215,12 +216,13 @@ end
 ---@param _opts { callback?: fun(target: string) }?
 local function freeze_operator(_opts)
   log({ fn = 'freeze_operator()', _opts = _opts }, vim.log.levels.DEBUG)
+  local opts = _opts or {}
   util.operator(function(positions)
     local range = { top = positions.top, bottom = positions.bottom }
     if M.opts.never_prompt then
-      freeze(vim.tbl_deep_extend('keep', { range = range }, _opts))
+      freeze(vim.tbl_deep_extend('keep', { range = range }, opts))
     else
-      freeze_prompt(vim.tbl_deep_extend('keep', { range = range }, _opts))
+      freeze_prompt(vim.tbl_deep_extend('keep', { range = range }, opts))
     end
   end, { jump = 'origin' })
 end
