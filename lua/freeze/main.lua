@@ -178,8 +178,8 @@ local function freeze_prompt(_opts)
       return freeze(opts)
     end
 
-    local dir = M.dir
-    local filename = M.filename
+    local dir = M.opts.dir
+    local filename = M.opts.filename
 
     if target:find('/') then
       dir = vim.fn.fnamemodify(target, ':p:h')
@@ -188,6 +188,9 @@ local function freeze_prompt(_opts)
     if vim.fn.fnamemodify(target, ':e') ~= '' then
       filename = vim.fn.fnamemodify(target, ':t')
     end
+
+    assert(dir, 'dir not expected to be nil')
+    assert(filename, 'filename not expected to be nil')
 
     opts.target = dir .. '/' .. filename
 
