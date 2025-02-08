@@ -230,8 +230,8 @@ local function freeze_operator(_opts)
   end, { jump = 'origin' })
 end
 
-local function setup(context)
-  local opts = context.opts or default_opts
+local function setup(_opts)
+  local opts = vim.tbl_deep_extend('keep', _opts or {}, default_opts)
   if opts.default_theme == 'dark' then
     opts.theme = opts.theme_dark
   else
